@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+
+  marketing-alliance-api:
+    extends:
+      file: services/marketingAlliance-api.yaml
+      service: marketing-alliance-api
+
+  marketing-alliance-redis-service:
+    extends:
+      file: services/redis.yaml
+      service: marketing-alliance-redis-service
+
+  marketing-alliance-db:
+    extends:
+      file: services/marketingAlliance-db.yaml
+      service: marketing-alliance-db
+
+volumes:
+  marketing-alliance-data:
+  marketing-alliance-redis:

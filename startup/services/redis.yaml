@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  marketing-alliance-redis-service: 
+    image: redis:latest
+    restart: always
+    ports:
+      - "6979:6379"
+    hostname: marketing-alliance-redis-service
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "ping" ]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 10s
+    volumes:
+      - marketing-alliance-redis:/data

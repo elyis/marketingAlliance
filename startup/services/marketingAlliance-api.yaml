@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  marketing-alliance-api:
+    image: marketing-alliance-api
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      marketing-alliance-db:
+        condition: service_started
+      marketing-alliance-redis-service:
+        condition: service_healthy
+    environment:
+    - CONNECTION_STRING=Host=marketing-alliance-db;Port=5432;Database=${MARKETING_ALLIANCE_DB_DATABASE};Username=${MARKETING_ALLIANCE_DB_USERNAME};Password=${MARKETING_ALLIANCE_DB_PASSWORD}
+    - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+    - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+
+    - JWT_ASYMMETRIC_PUBLIC_KEY=${JWT_ASYMMETRIC_PUBLIC_KEY}
+    - JWT_ASYMMETRIC_PRIVATE_KEY=${JWT_ASYMMETRIC_PRIVATE_KEY}
+    - JWT_ISSUER=${JWT_ISSUER}
+    - JWT_AUDIENCE=${JWT_AUDIENCE}
+
+    - REDIS_CONNECTION_STRING=${REDIS_CONNECTION_STRING}
+    - REDIS_INSTANCE_NAME=${REDIS_INSTANCE_NAME}
+
+    - MAIL_SERVER=${MAIL_SERVER}
+    - MAIL_PORT=${MAIL_PORT}
+    - MAIL_FROM=${MAIL_FROM}
+    - MAIL_TO=${MAIL_TO}
+    - MAIL_PASSWORD=${MAIL_PASSWORD}
